@@ -2,15 +2,15 @@
     "main": {
         "stage": "POC",
         "taglist": {
-            "Project": "DTP-POC",
-            "Projectname": "DTP",
-            "Environment": "POC",
-            "Technical Contact": "thomas.schindler@cariad.technology",
+            "Project": "POC-Azure-Bastion-Host",
+            "Projectname": "DevOpsProjectPractice1",
+            "Environment": "DEV",
+            "Technical Contact": "sherifkunch@gmail.com",
             "Costcenter" : "0000"
         }
     },
     "azure-core-infra": {
-        "vnet_network_name": "vnet-dtp",
+        "vnet_network_name": "my-vnet",
         "vnet_address_space": [
             "10.0.0.0/16"
         ], 
@@ -20,10 +20,10 @@
         "subnet_address_prefix_private": [
             "10.0.2.0/24"
         ],
-        "public_subnet_name": "dtp-public-subnet",
-        "private_subnet_name": "dtp-private-subnet",
+        "public_subnet_name": "public-subnet",
+        "private_subnet_name": "private-subnet",
         "resource_group_location": "westeurope",
-        "resource_group_name": "poc-dtp"
+        "resource_group_name": "POC-Bastion-Host"
     },
     "azure-load-balancer": {
         "sku": "Standard",

@@ -45,18 +45,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = var.nsg_ssh_rule_source_address_prefix
     destination_address_prefix = var.nsg_ssh_rule_destination_address_prefix
   }
-
-  security_rule {
-    name                       = var.nsg_any_custom_8080_inbound_rule_name
-    priority                   = var.nsg_any_custom_8080_inbound_rule_priority
-    direction                  = var.nsg_any_custom_8080_inbound_rule_direction
-    access                     = var.nsg_any_custom_8080_inbound_rule_access
-    protocol                   = var.nsg_any_custom_8080_inbound_rule_protocol
-    source_port_range          = var.nsg_any_custom_8080_inbound_rule_source_port_range
-    destination_port_range     = var.nsg_any_custom_8080_inbound_rule_destination_port_range
-    source_address_prefix      = var.nsg_any_custom_8080_inbound_rule_source_address_prefix
-    destination_address_prefix = var.nsg_any_custom_8080_inbound_rule_destination_address_prefix
-  }
   security_rule {
     name                       = var.nsg_any_custom_80_inbound_rule_name
     priority                   = var.nsg_any_custom_80_inbound_rule_priority
@@ -67,18 +55,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     destination_port_range     = var.nsg_any_custom_80_inbound_rule_destination_port_range
     source_address_prefix      = var.nsg_any_custom_80_inbound_rule_source_address_prefix
     destination_address_prefix = var.nsg_any_custom_80_inbound_rule_destination_address_prefix
-  }
-
-  security_rule {
-    name                       = var.nsg_any_custom_8443_inbound_rule_name
-    priority                   = var.nsg_any_custom_8443_inbound_rule_priority
-    direction                  = var.nsg_any_custom_8443_inbound_rule_direction
-    access                     = var.nsg_any_custom_8443_inbound_rule_access
-    protocol                   = var.nsg_any_custom_8443_inbound_rule_protocol
-    source_port_range          = var.nsg_any_custom_8443_inbound_rule_source_port_range
-    destination_port_range     = var.nsg_any_custom_8443_inbound_rule_destination_port_range
-    source_address_prefix      = var.nsg_any_custom_8443_inbound_rule_source_address_prefix
-    destination_address_prefix = var.nsg_any_custom_8443_inbound_rule_destination_address_prefix
   }
 }
 # Connect the security group to the network interface
