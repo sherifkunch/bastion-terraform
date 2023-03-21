@@ -1,0 +1,8 @@
+export AZ_RESOURCE_GROUP=poc-dtp
+export AZ_DATABASE_SERVER_NAME=dtpdatabase
+export AZ_DATABASE_NAME=dtp
+export AZ_LOCATION=westeurope
+export AZ_MYSQL_ADMIN_USERNAME=dtpdbadmin
+export AZ_MYSQL_ADMIN_PASSWORD="qweASD123"
+export START_IP_ADDRESS="0.0.0.0"
+export END_IP_ADDRESS="255.255.255.255"
