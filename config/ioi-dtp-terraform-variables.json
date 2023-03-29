@@ -53,7 +53,7 @@
         "name": "my-server",
         "size": "Standard_DS1_v2",
         "os_disk": {
-            "name": "OsDiskDTP",
+            "name": "OsDiskMyServer",
             "caching": "ReadWrite",
             "storage_account_type": "Premium_LRS"
         },
@@ -63,14 +63,14 @@
             "sku": "20_04-lts-gen2",
             "version":"latest"
         },
-        "computer_name": "dtp-server",
+        "computer_name": "my-server",
         "admin_username": "azureuser",
         "disable_password_authentication": true,
         "admin_ssh_key": {
             "name": "azureuser"
         },
         "network_security_group": {
-            "name": "DTP-NSG",
+            "name": "my-server-NSG",
             "ssh_rule": {
                 "name": "SSH",
                 "priority": "100",

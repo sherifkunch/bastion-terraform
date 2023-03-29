@@ -59,13 +59,13 @@ resource "tls_private_key" "example_ssh" {
 }
 
 # Provide the ssh locally
-resource "local_sensitive_file" "ansible_admin_private_sshkey" {
+resource "local_sensitive_file" "admin_private_sshkey" {
   content = tls_private_key.example_ssh.private_key_pem
   filename = "./files/ssh-key"
   file_permission = "0400"
 }
 
-resource "local_file" "ansible_admin_public_sshkey" {
+resource "local_file" "admin_public_sshkey" {
   content = tls_private_key.example_ssh.public_key_pem
   filename = "./files/key.pub"
   file_permission = "0400"
