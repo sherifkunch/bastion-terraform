@@ -34,7 +34,7 @@ variable "bastion_address_prefix" {
   description = "The range for the bastion subnet"
 }
 variable "nic_name" {
-  description = ""
+  description = "the name of the network interface card"
 }
 variable "nic_ip_configuration_name" {
   description = ""

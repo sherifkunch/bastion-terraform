@@ -36,6 +36,19 @@
             }
         }
     },
+    "public_ip" : {
+        "name": "exampleip",
+        "allocation_method": "Static",
+        "sku": "Standard",
+        "ip_configuration": {
+            "name": "my_bastion_configuration"
+        }
+    },
+    "bastion_host": {
+        "name": "examplebastion",
+        "tunneling_enabled": "true",
+        "sku": "Standard"
+    },
     "virtual-machine": {
         "name": "my-dtp-server",
         "size": "Standard_DS1_v2",

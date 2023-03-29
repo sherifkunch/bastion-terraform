@@ -53,13 +53,13 @@ resource "azurerm_subnet" "bastion_subnet" {
 
 # Create network interface
 resource "azurerm_network_interface" "my_nic" {
-  name                = "myNIC"
+  name                = var.nic_name
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
 
   ip_configuration {
-    name                          = "my_nic_configuration"
+    name                          = var.nic_ip_configuration_name
     subnet_id                     = azurerm_subnet.my_private_terraform_subnet.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = var.nic_private_ip_address_allocation
   }
 }

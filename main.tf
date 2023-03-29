@@ -23,10 +23,17 @@ locals {
  taglist                                  = local.tf_config.main.taglist
 }
 module "bastion-host" {
-  source                  = "./modules/bastion-host"
-  resource_group_location = local.tf_config.azure-core-infra.resource_group_location
-  resource_group_name     = local.tf_config.azure-core-infra.resource_group_name
-  subnet_id               = module.azure-core-infra.bastion_subnet_id
+  source                       = "./modules/bastion-host"
+  bastion_name                 = local.tf_config.azure-core-infra.bastion_host.name
+  bastion_tunneling_setting    = local.tf_config.azure-core-infra.bastion_host.tunneling_enabled
+  bastion_sku                  = local.tf_config.azure-core-infra.bastion_host.sku
+  public_ip_name               = local.tf_config.azure-core-infra.public_ip.name
+  public_ip_allocation_method  = local.tf_config.azure-core-infra.public_ip.allocation_method
+  public_ip_sku                = local.tf_config.azure-core-infra.public_ip.sku
+  public_ip_configuration      = local.tf_config.azure-core-infra.ip_configuration.name
+  resource_group_location      = local.tf_config.azure-core-infra.resource_group_location
+  resource_group_name          = local.tf_config.azure-core-infra.resource_group_name
+  subnet_id                   = module.azure-core-infra.bastion_subnet_id
   depends_on = [
    module.azure-core-infra
  ]
