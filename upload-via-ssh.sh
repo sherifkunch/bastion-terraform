@@ -1,6 +1,6 @@
 #!/bin/bash
 
-az network bastion tunnel --name "examplebastion" --resource-group "POC-Bastion-Host" --target-resource-id "/subscriptions/4307d060-3d4f-42dd-a5f8-5d44cd11f167/resourceGroups/POC-Bastion-Host/providers/Microsoft.Compute/virtualMachines/my-dtp-server" --resource-port "22" --port "50022" > /dev/null 2>&1 & 
+az network bastion tunnel --name "examplebastion" --resource-group "POC-Bastion-Host" --target-resource-id "/subscriptions/4307d060-3d4f-42dd-a5f8-5d44cd11f167/resourceGroups/POC-Bastion-Host/providers/Microsoft.Compute/virtualMachines/my-server" --resource-port "22" --port "50022" > /dev/null 2>&1 & 
 
 echo "sleep 3 seconds"
 sleep 3

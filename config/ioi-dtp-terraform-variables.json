@@ -50,7 +50,7 @@
         "sku": "Standard"
     },
     "virtual-machine": {
-        "name": "my-dtp-server",
+        "name": "my-server",
         "size": "Standard_DS1_v2",
         "os_disk": {
             "name": "OsDiskDTP",

@@ -8,5 +8,5 @@ output "private_subnet_id" {
    value = azurerm_subnet.my_private_terraform_subnet.id
 }
 output "my_terraform_nic_id" {
-   value = azurerm_network_interface.my_terraform_nic.id
+   value = azurerm_network_interface.my_nic.id
 }
