@@ -20,69 +20,21 @@
         "subnet_address_prefix_private": [
             "10.0.2.0/24"
         ],
+        "subnet_address_prefix_bastion" : [
+            "10.0.4.0/27"
+        ],
         "public_subnet_name": "public-subnet",
         "private_subnet_name": "private-subnet",
+        "bastion_subnet_name": "AzureBastionSubnet",
         "resource_group_location": "westeurope",
-        "resource_group_name": "POC-Bastion-Host"
-    },
-    "azure-load-balancer": {
-        "sku": "Standard",
-        "name": "dtp-LoadBalancer",
-        "backend_adress_pool_name": "yes",
-        "loadbalancer-probes": {
-            "https-probe": {
-                "name": "https-probe",
-                "protocol": "HTTPS",
-                "port": "8443",
-                "request_path": "/"
-            },
-            "http-probe": {
-                "name": "http-probe",
-                "protocol": "HTTP",
-                "port": "8080",
-                "request_path": "/"
+        "resource_group_name": "POC-Bastion-Host",
+        "my_nic" : {
+            "name" : "myNIC",
+            "ip_configuration": {
+                "name": "my_nic_configuration",
+                "private_ip_address_allocation": "Dynamic"
             }
-        },
-        "loadbalancer-rules": {
-            "web-to-loadbancer": {
-                "name": "web-to-loadbalancer",
-                "protocol": "Tcp",
-                "frontend_port": "80",
-                "backend_port": "8080",
-                "disable_outbound_snat": true,
-                "enable_tcp_reset": true
-            },
-            "loadbalancer-to-server": {
-                "name": "loadbalancer-to-server",
-                "protocol": "Tcp",
-                "frontend_port": "8443",
-                "backend_port": "8443",
-                "disable_outbound_snat": true,
-                "enable_tcp_reset": true
-            }
-        },
-        "loadbalancer-nat-rule": {
-            "name": "SSHAccess",
-            "protocol": "Tcp",
-            "frontend_port": "221",
-            "backend_port": "22"
-        },
-        "loadbalancer-outbound-rule": {
-            "name": "AllowAccessToTheInternet",
-            "protocol": "All"
-        },
-        "loadbalancer-nic":{
-            "name": "dtp-lb-nic",
-            "private_ip_address_allocation": "Dynamic"
         }
-    },
-    "public-ip": {
-        "name": "dtp-lb-publicip",
-        "sku": "Standard",
-        "allocation_method": "Static"
-    },
-    "frontend_ip_configuration": {
-        "name": "web-lb-publicip-1"
     },
     "virtual-machine": {
         "name": "my-dtp-server",
@@ -114,39 +66,6 @@
                 "protocol": "Tcp",
                 "source_port_range": "*",
                 "destination_port_range": "22",
-                "source_address_prefix": "*",
-                "destination_address_prefix": "*"
-            },
-            "AllowAnyCustom8080Inbound": {
-                "name": "AllowAnyCustom8080Inbound",
-                "priority": "101",
-                "direction": "Inbound",
-                "access": "Allow",
-                "protocol": "Tcp",
-                "source_port_range": "*",
-                "destination_port_range": "8080",
-                "source_address_prefix": "*",
-                "destination_address_prefix": "*"
-            },
-            "AllowAnyCustom80Inbound": {
-                "name": "AllowAnyCustom80Inbound",
-                "priority": "102",
-                "direction": "Inbound",
-                "access": "Allow",
-                "protocol": "Tcp",
-                "source_port_range": "*",
-                "destination_port_range": "80",
-                "source_address_prefix": "*",
-                "destination_address_prefix": "*"
-            },
-            "AllowAnyCustom8443Inbound": {
-                "name": "AllowAnyCustom8443Inbound",
-                "priority": "103",
-                "direction": "Inbound",
-                "access": "Allow",
-                "protocol": "*",
-                "source_port_range": "*",
-                "destination_port_range": "8443",
                 "source_address_prefix": "*",
                 "destination_address_prefix": "*"
             }

@@ -6,16 +6,21 @@ locals {
 }
 
  module "azure-core-infra" {
- source                  = "./modules/azure-core-infra"
- resource_group_location = local.tf_config.azure-core-infra.resource_group_location
- resource_group_name     = local.tf_config.azure-core-infra.resource_group_name  
- vnet_network_name       = local.tf_config.azure-core-infra.vnet_network_name
- address_space           = local.tf_config.azure-core-infra.vnet_address_space
- public_address_prefix   = local.tf_config.azure-core-infra.subnet_address_prefix_public
- private_address_prefix  = local.tf_config.azure-core-infra.subnet_address_prefix_private
- public_subnet_name      = local.tf_config.azure-core-infra.public_subnet_name
- private_subnet_name     = local.tf_config.azure-core-infra.private_subnet_name
- taglist                 = local.tf_config.main.taglist
+ source                                   = "./modules/azure-core-infra"
+ resource_group_location                  = local.tf_config.azure-core-infra.resource_group_location
+ resource_group_name                      = local.tf_config.azure-core-infra.resource_group_name  
+ vnet_network_name                        = local.tf_config.azure-core-infra.vnet_network_name
+ address_space                            = local.tf_config.azure-core-infra.vnet_address_space
+ public_address_prefix                    = local.tf_config.azure-core-infra.subnet_address_prefix_public
+ private_address_prefix                   = local.tf_config.azure-core-infra.subnet_address_prefix_private
+ bastion_address_prefix                   = local.tf_config.azure-core-infra.subnet_address_prefix_bastion
+ bastion_subnet_name                      = local.tf_config.azure-core-infra.bastion_subnet_name
+ public_subnet_name                       = local.tf_config.azure-core-infra.public_subnet_name
+ private_subnet_name                      = local.tf_config.azure-core-infra.private_subnet_name
+ nic_name                                 = local.tf_config.azure-core-infra.my_nic.name
+ nic_ip_configuration_name                = local.tf_config.azure-core-infra.my_nic.ip_configuration.name
+ nic_private_ip_address_allocation        = local.tf_config.azure-core-infra.my_nic.ip_configuration.private_ip_address_allocation
+ taglist                                  = local.tf_config.main.taglist
 }
 module "bastion-host" {
   source                  = "./modules/bastion-host"
@@ -26,63 +31,6 @@ module "bastion-host" {
    module.azure-core-infra
  ]
 }
-
-# module "dtp-loadbalancer" {
-#  source                                             = "./modules/dtp-loadbalancer"
-#  subnet_id                                          = module.azure-core-infra.public_subnet_id
-#  #RESOURCE GROUP      
-#  resource_group_location                            = local.tf_config.azure-core-infra.resource_group_location
-#  resource_group_name                                = local.tf_config.azure-core-infra.resource_group_name  
-#  #PUBLIC IP     
-#  public-ip-sku                                      = local.tf_config.public-ip.sku
-#  allocation_method                                  = local.tf_config.public-ip.allocation_method
-#  public-ip-name                                     = local.tf_config.public-ip.name
-#  #LOADBALANCER RELATED      
-#  loadbalancer-name                                  = local.tf_config.azure-load-balancer.name
-#  loadbalancer-sku                                   = local.tf_config.azure-load-balancer.sku
-#  frontend_ip_configuration_name                     = local.tf_config.frontend_ip_configuration.name
-#  backend_adress_pool_name                           = local.tf_config.azure-load-balancer.backend_adress_pool_name
-#  #HTTPS PROBE     
-#  loadbalancer-https-probe-name                      = local.tf_config.azure-load-balancer.loadbalancer-probes.https-probe.name
-#  loadbalancer-https-probe-protocol                  = local.tf_config.azure-load-balancer.loadbalancer-probes.https-probe.protocol
-#  loadbalancer-https-probe-port                      = local.tf_config.azure-load-balancer.loadbalancer-probes.https-probe.port
-#  loadbalancer-https-probe-request-path              = local.tf_config.azure-load-balancer.loadbalancer-probes.https-probe.request_path
-#  #HTTP PROBE      
-#  loadbalancer-http-probe-name                       = local.tf_config.azure-load-balancer.loadbalancer-probes.http-probe.name
-#  loadbalancer-http-probe-protocol                   = local.tf_config.azure-load-balancer.loadbalancer-probes.http-probe.protocol
-#  loadbalancer-http-probe-port                       = local.tf_config.azure-load-balancer.loadbalancer-probes.http-probe.port
-#  loadbalancer-http-probe-request-path               = local.tf_config.azure-load-balancer.loadbalancer-probes.http-probe.request_path
-#  # LOADBALANCER RULES WEB-TO-LOADBALANCER
-#  web-to-loadbancer-rule-name                        = local.tf_config.azure-load-balancer.loadbalancer-rules.web-to-loadbancer.name
-#  web-to-loadbancer-rule-protocol                    = local.tf_config.azure-load-balancer.loadbalancer-rules.web-to-loadbancer.protocol
-#  web-to-loadbancer-rule-frontend_port               = local.tf_config.azure-load-balancer.loadbalancer-rules.web-to-loadbancer.frontend_port
-#  web-to-loadbancer-rule-backend_port                = local.tf_config.azure-load-balancer.loadbalancer-rules.web-to-loadbancer.backend_port
-#  web-to-loadbancer-rule-disable_outbound_snat       = local.tf_config.azure-load-balancer.loadbalancer-rules.web-to-loadbancer.disable_outbound_snat
-#  web-to-loadbancer-rule-enable_tcp_reset            = local.tf_config.azure-load-balancer.loadbalancer-rules.web-to-loadbancer.enable_tcp_reset
-#  #LOADBALANCER RULES LOADBALANCER-TO-SERVER
-#  loadbalancer-to-server-rule-name                   = local.tf_config.azure-load-balancer.loadbalancer-rules.loadbalancer-to-server.name
-#  loadbalancer-to-server-rule-protocol               = local.tf_config.azure-load-balancer.loadbalancer-rules.loadbalancer-to-server.protocol
-#  loadbalancer-to-server-rule-frontend_port          = local.tf_config.azure-load-balancer.loadbalancer-rules.loadbalancer-to-server.frontend_port
-#  loadbalancer-to-server-rule-backend_port           = local.tf_config.azure-load-balancer.loadbalancer-rules.loadbalancer-to-server.backend_port
-#  loadbalancer-to-server-rule-disable_outbound_snat  = local.tf_config.azure-load-balancer.loadbalancer-rules.loadbalancer-to-server.disable_outbound_snat
-#  loadbalancer-to-server-rule-enable_tcp_reset       = local.tf_config.azure-load-balancer.loadbalancer-rules.loadbalancer-to-server.enable_tcp_reset
-#  #LOADBALANCER NAT RULE 
-#  loadbalancer-nat-rule-name                         = local.tf_config.azure-load-balancer.loadbalancer-nat-rule.name
-#  loadbalancer-nat-rule-protocol                     = local.tf_config.azure-load-balancer.loadbalancer-nat-rule.protocol
-#  loadbalancer-nat-rule-frontend_port                = local.tf_config.azure-load-balancer.loadbalancer-nat-rule.frontend_port  
-#  loadbalancer-nat-rule-backend_port                 = local.tf_config.azure-load-balancer.loadbalancer-nat-rule.backend_port  
-#  #OUTBOUND RULE
-#  loadbalancer-outbount-rule-name                    = local.tf_config.azure-load-balancer.loadbalancer-outbound-rule.name
-#  loadbalancer-outbount-rule-protocol                = local.tf_config.azure-load-balancer.loadbalancer-outbound-rule.protocol
-#  #LOADBALANCER NIC
-#  nic-name                                           = local.tf_config.azure-load-balancer.loadbalancer-nic.name
-#  nic-private_ip_address_allocation                  = local.tf_config.azure-load-balancer.loadbalancer-nic.private_ip_address_allocation
-#  taglist                                            = local.tf_config.main.taglist
-#  depends_on = [
-#     module.azure-core-infra
-#   ]  
-# }
-
 module "dtp-virtual-machine" {
  source                                                      = "./modules/dtp-virtual-machine"
  resource_group_location                                     = local.tf_config.azure-core-infra.resource_group_location
@@ -97,8 +45,7 @@ module "dtp-virtual-machine" {
  source_image_publisher                                      = local.tf_config.virtual-machine.source_image_reference.publisher
  source_image_offer                                          = local.tf_config.virtual-machine.source_image_reference.offer
  source_image_sku                                            = local.tf_config.virtual-machine.source_image_reference.sku
- source_image_version                                        = local.tf_config.virtual-machine.source_image_reference.version
-                             
+ source_image_version                                        = local.tf_config.virtual-machine.source_image_reference.version                
  computer_name                                               = local.tf_config.virtual-machine.computer_name
  admin_username                                              = local.tf_config.virtual-machine.admin_username
  disable_password_authentication                             = local.tf_config.virtual-machine.disable_password_authentication
@@ -115,22 +62,10 @@ module "dtp-virtual-machine" {
  nsg_ssh_rule_source_address_prefix                          = local.tf_config.virtual-machine.network_security_group.ssh_rule.source_address_prefix
  nsg_ssh_rule_destination_address_prefix                     = local.tf_config.virtual-machine.network_security_group.ssh_rule.destination_address_prefix
 
- nsg_any_custom_80_inbound_rule_name                         = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.name
- nsg_any_custom_80_inbound_rule_priority                     = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.priority
- nsg_any_custom_80_inbound_rule_direction                    = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.direction
- nsg_any_custom_80_inbound_rule_access                       = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.access
- nsg_any_custom_80_inbound_rule_protocol                     = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.protocol
- nsg_any_custom_80_inbound_rule_source_port_range            = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.source_port_range
- nsg_any_custom_80_inbound_rule_destination_port_range       = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.destination_port_range
- nsg_any_custom_80_inbound_rule_source_address_prefix        = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.source_address_prefix
- nsg_any_custom_80_inbound_rule_destination_address_prefix   = local.tf_config.virtual-machine.network_security_group.AllowAnyCustom80Inbound.destination_address_prefix
-
  network_interface_id                                        = module.azure-core-infra.my_terraform_nic_id
  network_security_group_id                                   = module.dtp-virtual-machine.network_security_group_id
  
  depends_on = [
    module.azure-core-infra
  ]
-
- #taglist                                                     = local.tf_config.main.taglist
 }

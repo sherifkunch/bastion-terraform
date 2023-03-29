@@ -30,7 +30,21 @@ variable "public_subnet_name" {
 variable "private_subnet_name" {
   description = "Name of the private subnet"
 }
-
+variable "bastion_address_prefix" {
+  description = "The range for the bastion subnet"
+}
+variable "nic_name" {
+  description = ""
+}
+variable "nic_ip_configuration_name" {
+  description = ""
+}
+variable "nic_private_ip_address_allocation" {
+  description = ""
+}                                
+variable "bastion_subnet_name" {
+  description = "Name of the bastion subnet"
+}
 variable "taglist" {
   description = "Taglist for all resources"
   type= map(string)
